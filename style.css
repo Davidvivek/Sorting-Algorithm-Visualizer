@@ -1,0 +1,39 @@
+body {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.buttons {
+    margin: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 400px;
+    width: 90%;
+    margin: auto;
+    border-bottom: 5px solid white;
+}
+
+.bar {
+    width: 20px;
+    background-color: #00bcd4;
+    margin: 0 2px;
+}
