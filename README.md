@@ -1,5 +1,9 @@
 # ⏳ Sorting Algorithm Visualizer
 
+## 🚀 Live Demo
+🔗 https://sorting-algorithm-visualizer-lake.vercel.app/
+
+
 A responsive web application that visualizes classic sorting algorithms in real-time. This project was built to understand the practical differences in time complexity and algorithmic efficiency through animation.
 
 ## 🎯 Features
