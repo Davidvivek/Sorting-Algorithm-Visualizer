@@ -15,7 +15,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// BUBBLE SORT
+// BUBBLE SORT 
 async function bubble() {
     let bars = document.getElementsByClassName("bar");
     for (let i = 0; i < bars.length; i++) {
