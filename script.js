@@ -8,7 +8,7 @@ function generate() {
         bar.classList.add("bar");
         bar.style.height = height + "px";
         container.appendChild(bar);
-    }
+    } 
 }
 
 function sleep(ms) {
