@@ -1,7 +1,7 @@
 const container = document.getElementById("container");
 // CONTROL SPEED HERE (milliseconds)
 // 20 = Fast, 100 = Medium, 500 = Slow
-const speed = 100; 
+const speed = 10; 
 
 function generate() {
     container.innerHTML = "";
