@@ -1,15 +1,24 @@
 const container = document.getElementById("container");
-// CONTROL SPEED HERE (milliseconds)
-// 20 = Fast, 100 = Medium, 500 = Slow
-const speed = 10; 
+
+// CONFIGURATION
+// We set the transition to 0.5s, so we must wait at least 600ms to see it finish clearly.
+const speed = 600; 
+const transitionSpeed = "0.5s"; // CSS transition speed
 
 function generate() {
     container.innerHTML = "";
     for (let i = 0; i < 30; i++) {
         let height = Math.floor(Math.random() * 300) + 20;
         let bar = document.createElement("div");
+        
         bar.classList.add("bar");
         bar.style.height = height + "px";
+        
+        // --- THIS IS THE KEY CHANGE ---
+        // This adds smooth animation to height changes and color changes
+        bar.style.transition = `height ${transitionSpeed} ease, background-color ${transitionSpeed} ease`;
+        // ------------------------------
+
         container.appendChild(bar);
     } 
 }
@@ -26,16 +35,21 @@ async function bubble() {
             bars[j].style.backgroundColor = "red";
             bars[j + 1].style.backgroundColor = "red";
             
-            // Updated sleep
+            // Wait to see the red selection
             await sleep(speed);
 
             let val1 = parseInt(bars[j].style.height);
             let val2 = parseInt(bars[j + 1].style.height);
 
             if (val1 > val2) {
+                // The transition property handles the smooth movement here
                 bars[j].style.height = val2 + "px";
                 bars[j + 1].style.height = val1 + "px";
+                
+                // Wait for the swap animation to finish
+                await sleep(speed);
             }
+            
             bars[j].style.backgroundColor = "#00bcd4";
             bars[j + 1].style.backgroundColor = "#00bcd4";
         }
@@ -53,8 +67,7 @@ async function selection() {
         for (let j = i + 1; j < bars.length; j++) {
             bars[j].style.backgroundColor = "red";
             
-            // Updated sleep
-            await sleep(speed);
+            await sleep(speed / 2); // Check faster, swap slower
 
             let val1 = parseInt(bars[j].style.height);
             let val2 = parseInt(bars[min_idx].style.height);
@@ -71,6 +84,9 @@ async function selection() {
         bars[min_idx].style.height = bars[i].style.height;
         bars[i].style.height = temp;
         
+        // Wait for swap animation
+        await sleep(speed);
+        
         bars[min_idx].style.backgroundColor = "#00bcd4";
         bars[i].style.backgroundColor = "green";
     }
@@ -85,21 +101,21 @@ async function insertion() {
         let j = i - 1;
         
         bars[i].style.backgroundColor = "red";
-        
-        // Updated sleep
         await sleep(speed);
 
         while (j >= 0 && parseInt(bars[j].style.height) > key) {
             bars[j].style.backgroundColor = "red";
+            
+            // Allow the bar to slide up
             bars[j + 1].style.height = bars[j].style.height;
             j = j - 1;
             
-            // Updated sleep inside while loop
             await sleep(speed);
             
             for(let k = 0; k <= i; k++) bars[k].style.backgroundColor = "green";
         }
         bars[j + 1].style.height = height;
+        await sleep(speed); // Wait for insertion animation
     }
 }
 
@@ -138,13 +154,14 @@ async function heapify(bars, n, i) {
         bars[i].style.backgroundColor = "red";
         bars[largest].style.backgroundColor = "red";
         
-        // Updated sleep
         await sleep(speed);
 
         let temp = bars[i].style.height;
         bars[i].style.height = bars[largest].style.height;
         bars[largest].style.height = temp;
         
+        await sleep(speed);
+
         bars[i].style.backgroundColor = "#00bcd4";
         bars[largest].style.backgroundColor = "#00bcd4";
 
@@ -178,9 +195,7 @@ async function merge(bars, l, m, r) {
     
     while (i < n1 && j < n2) {
         bars[k].style.backgroundColor = "red";
-        
-        // Updated sleep
-        await sleep(speed);
+        await sleep(speed); 
         
         if (parseInt(L[i]) <= parseInt(R[j])) {
             bars[k].style.height = L[i];
@@ -189,6 +204,9 @@ async function merge(bars, l, m, r) {
             bars[k].style.height = R[j];
             j++;
         }
+        // Wait for the height change to animate
+        await sleep(speed);
+        
         bars[k].style.backgroundColor = "green"; 
         k++;
     }
@@ -197,8 +215,6 @@ async function merge(bars, l, m, r) {
         bars[k].style.height = L[i];
         bars[k].style.backgroundColor = "green";
         i++; k++;
-        
-        // Updated sleep
         await sleep(speed);
     }
 
@@ -206,8 +222,6 @@ async function merge(bars, l, m, r) {
         bars[k].style.height = R[j];
         bars[k].style.backgroundColor = "green";
         j++; k++;
-        
-        // Updated sleep
         await sleep(speed);
     }
 }
@@ -233,6 +247,7 @@ async function partition(bars, low, high) {
 
     for (let j = low; j <= high - 1; j++) {
         let curr = parseInt(bars[j].style.height);
+        
         if (curr < pivot) {
             i++;
             let temp = bars[i].style.height;
@@ -242,13 +257,13 @@ async function partition(bars, low, high) {
             bars[i].style.backgroundColor = "orange";
             if (i != j) bars[j].style.backgroundColor = "orange";
             
-            // Updated sleep
             await sleep(speed);
         }
     }
     let temp = bars[i + 1].style.height;
     bars[i + 1].style.height = bars[high].style.height;
     bars[high].style.height = temp;
+    await sleep(speed); // Wait for pivot swap
 
     for (let k = low; k <= high; k++) bars[k].style.backgroundColor = "green";
     
