@@ -1,4 +1,7 @@
 const container = document.getElementById("container");
+// CONTROL SPEED HERE (milliseconds)
+// 20 = Fast, 100 = Medium, 500 = Slow
+const speed = 100; 
 
 function generate() {
     container.innerHTML = "";
@@ -23,7 +26,8 @@ async function bubble() {
             bars[j].style.backgroundColor = "red";
             bars[j + 1].style.backgroundColor = "red";
             
-            await sleep(20);
+            // Updated sleep
+            await sleep(speed);
 
             let val1 = parseInt(bars[j].style.height);
             let val2 = parseInt(bars[j + 1].style.height);
@@ -48,7 +52,9 @@ async function selection() {
 
         for (let j = i + 1; j < bars.length; j++) {
             bars[j].style.backgroundColor = "red";
-            await sleep(20);
+            
+            // Updated sleep
+            await sleep(speed);
 
             let val1 = parseInt(bars[j].style.height);
             let val2 = parseInt(bars[min_idx].style.height);
@@ -79,13 +85,18 @@ async function insertion() {
         let j = i - 1;
         
         bars[i].style.backgroundColor = "red";
-        await sleep(20);
+        
+        // Updated sleep
+        await sleep(speed);
 
         while (j >= 0 && parseInt(bars[j].style.height) > key) {
             bars[j].style.backgroundColor = "red";
             bars[j + 1].style.height = bars[j].style.height;
             j = j - 1;
-            await sleep(20);
+            
+            // Updated sleep inside while loop
+            await sleep(speed);
+            
             for(let k = 0; k <= i; k++) bars[k].style.backgroundColor = "green";
         }
         bars[j + 1].style.height = height;
@@ -126,7 +137,9 @@ async function heapify(bars, n, i) {
     if (largest != i) {
         bars[i].style.backgroundColor = "red";
         bars[largest].style.backgroundColor = "red";
-        await sleep(20);
+        
+        // Updated sleep
+        await sleep(speed);
 
         let temp = bars[i].style.height;
         bars[i].style.height = bars[largest].style.height;
@@ -165,7 +178,9 @@ async function merge(bars, l, m, r) {
     
     while (i < n1 && j < n2) {
         bars[k].style.backgroundColor = "red";
-        await sleep(20);
+        
+        // Updated sleep
+        await sleep(speed);
         
         if (parseInt(L[i]) <= parseInt(R[j])) {
             bars[k].style.height = L[i];
@@ -182,14 +197,18 @@ async function merge(bars, l, m, r) {
         bars[k].style.height = L[i];
         bars[k].style.backgroundColor = "green";
         i++; k++;
-        await sleep(20);
+        
+        // Updated sleep
+        await sleep(speed);
     }
 
     while (j < n2) {
         bars[k].style.height = R[j];
         bars[k].style.backgroundColor = "green";
         j++; k++;
-        await sleep(20);
+        
+        // Updated sleep
+        await sleep(speed);
     }
 }
 
@@ -222,7 +241,9 @@ async function partition(bars, low, high) {
             
             bars[i].style.backgroundColor = "orange";
             if (i != j) bars[j].style.backgroundColor = "orange";
-            await sleep(20);
+            
+            // Updated sleep
+            await sleep(speed);
         }
     }
     let temp = bars[i + 1].style.height;
