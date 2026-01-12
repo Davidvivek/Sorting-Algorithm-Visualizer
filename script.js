@@ -3,7 +3,7 @@ const container = document.getElementById("container");
 // CONFIGURATION
 // We set the transition to 0.5s, so we must wait at least 600ms to see it finish clearly.
 const speed = 600; 
-const transitionSpeed = "0.5s"; // CSS transition speed
+const transitionSpeed = "1.0s"; // CSS transition speed
 
 function generate() {
     container.innerHTML = "";
